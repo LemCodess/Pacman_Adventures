@@ -693,7 +693,7 @@ def check_ghost_collisions():
 
     # Check for collisions between each ghost and the shooter
     for ghost in ghosts:
-        ghost_box = GhostBoundingBox(ghost['x'], ghost['y'], 5) # Adjust the radius as needed
+        ghost_box = GhostBoundingBox(ghost['x'], ghost['y'], 5)
         if ghost_box.collides_with(pacman):
 
                 lives -= 1
