@@ -205,13 +205,16 @@ def generate_points():
 
 
 def restart(button):
+   global night
    x1, x2, y1, y2 = button.x1, button.x2, button.y1, button.y2
 
    m_x = (x1 + x2)/2
    m_y = (y1 + y2)/2
 
-
-   glColor3f(0, 1, 1)
+   if night:
+        glColor3f(0, 1, 1)
+   else:
+        glColor3f(0,0,0)
    draw_line(x1, m_y, m_x, y2,2) 
    draw_line(x1, m_y, m_x, y1,2) 
    draw_line(x1, m_y, x2, m_y,2) 
@@ -221,13 +224,18 @@ def restart(button):
 
 
 def pause(button):
+    global night
     x1, x2, y1, y2 = button.x1, button.x2, button.y1, button.y2
 
     m_x = (x1 + x2)/2
     m_y = (y1 + y2)/2
 
 
-    glColor3f(1, 0.75, 0)
+    
+    if night:
+        glColor3f(1, 0.75, 0)
+    else:
+        glColor3f(0,0,0)
     draw_line(m_x-5, y1, m_x-5, y2,2) 
     draw_line(m_x+5, y1, m_x+5, y2,2) 
     
@@ -236,13 +244,18 @@ def pause(button):
     #button.draw()
 
 def play(button):
+    global night
     x1, x2, y1, y2 = button.x1, button.x2, button.y1, button.y2
 
     m_x = (x1 + x2)/2
     m_y = (y1 + y2)/2
 
 
-    glColor3f(1, 0.75, 0)
+    
+    if night:
+        glColor3f(1, 0.75, 0)
+    else:
+        glColor3f(0,0,0)
     draw_line(m_x-10, y1, m_x-10, y2,2) 
     draw_line(m_x-10, y1, x2, m_y,2)
     draw_line(m_x-10, y2, x2, m_y,2) 
@@ -252,6 +265,7 @@ def play(button):
     #button.draw()
 
 def cross(button):
+   global night
    x1, x2, y1, y2 = button.x1, button.x2, button.y1, button.y2
 
    m_x = (x1 + x2)/2
@@ -266,6 +280,7 @@ def cross(button):
    #button.draw()
 
 def shooter(button, color):
+    global night
 
     x1, x2, y1, y2 = button.x1, button.x2, button.y1, button.y2
 
@@ -280,7 +295,12 @@ def shooter(button, color):
     #m_d = (x2-m_x)/2
     #m_d_2 = (y2-m_y)/2
 
-    glColor3f(1,1,0)
+    
+    if night:
+        glColor3f(1,1,0)
+    else:
+        glColor3f(0,0,0)
+
     draw_circle(center, m_x, m_y)
 
     draw_line(m_x, m_y, m_x + center_half  +1 , m_y + center_half +1, 2)
@@ -302,7 +322,7 @@ def point_draw(button):
 
    #x,y,z = color
    if not night:
-       glColor3f(1.0, 0, 1.0)
+       glColor3f(0.0, 0.0, 0.0)
    else:
        glColor3f(1.0, 1.0, 1.0)
 
@@ -411,7 +431,7 @@ def maze(lv):
     global line_boundaries, line_boundaries_2, lines, lines_2, score, pacman, first, night
 
     if not night:
-        glColor3f(1.0, 0, 1.0)
+        glColor3f(0.0, 0, 0.0)
     else:
         glColor3f(1.0, 1.0, 1.0)
 
@@ -492,7 +512,7 @@ def draw_ghosts():
 
 def draw():
     global frozen , lives
-    global catcher_color, ghost_color, points, points_clean, first
+    global catcher_color, ghost_color, points, points_clean, first, night
     glClear(GL_COLOR_BUFFER_BIT)
     glColor3f(1.0, 1.0, 1.0)
 
@@ -516,15 +536,26 @@ def draw():
     cross(cross_button)
 
     if lives == 3:
-        glColor3f(1.0, 1.0, 0)
+        if night:
+            glColor3f(1.0, 1.0, 0)
+        else:
+            glColor3f(0.0, 0.0, 0)
         draw_pixel(400, 660, 10)
         draw_pixel(420, 660, 10)
         draw_pixel(440, 660, 10)
     elif lives == 2:
+        if night:
+            glColor3f(1.0, 1.0, 0)
+        else:
+            glColor3f(0.0, 0.0, 0)
         glColor3f(1.0, 1.0, 0)
         draw_pixel(400, 660, 10)
         draw_pixel(420, 660, 10)
     elif lives == 1:
+        if night:
+            glColor3f(1.0, 1.0, 0)
+        else:
+            glColor3f(0.0, 0.0, 0)
         glColor3f(1.0, 1.0, 0)
         draw_pixel(400, 660, 10)
 
@@ -667,7 +698,7 @@ def check_ghost_collisions():
 
                 lives -= 1
                 print('Remaining lives: ',lives)
-                pacman = BoundingBox((265,20),(290,45),1)
+                pacman = BoundingBox((265,20),(290,45),1)  
 
                 if lives < 1:
                     print("MUHAAAA THE GHOST CAUGHT YOU")
